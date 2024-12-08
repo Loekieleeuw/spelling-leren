@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spelling Regels Leren</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            color: #444;
+            text-align: center;
+        }
+        h2, h3 {
+            color: #555;
+        }
+        #content-box {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #question-box {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Spelling Regels Leren</h1>
+
+    <div id="content-box">
+        <h2>Uitleg</h2>
+        <p>Lees de uitleg goed door voordat je begint aan de vragen.</p>
+        <ul>
+            <li><strong>Hoofdletters:</strong> Gebruik ze aan het begin van een zin en bij namen (bijv. Elze Mulder, Noordzee).</li>
+            <li><strong>Leestekens:</strong> Eindig een zin met een punt, vraagteken of uitroepteken.</li>
+            <li><strong>Bijvoeglijke naamwoorden:</strong> Korte vorm: lekker. Lange vorm: lekkere.</li>
+            <li><strong>Meervouden:</strong> Meestal op -en (paarden), soms -'s (baby’s).</li>
+            <li><strong>Verkleinwoorden:</strong> Voeg -je, -tje, -pje of -etje toe (bijv. ringetje).</li>
+            <li><strong>Werkwoorden:</strong> De persoonsvorm in de tegenwoordige tijd: gebruik de ik-vorm.</li>
+        </ul>
+        <button onclick="startQuestions()">Start Oefening</button>
+    </div>
+
+    <div id="question-box" style="display: none;">
+        <h3 id="question">Klik op "Volgende Vraag" om te beginnen!</h3>
+        <input type="text" id="answer" placeholder="Typ je antwoord hier">
+        <button onclick="checkAnswer()">Controleren</button>
+        <button onclick="generateQuestion()">Volgende Vraag</button>
+        <div id="feedback"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { 
+                question: "Wanneer gebruik je hoofdletters?", 
+                answers: [
+                    "aan het begin van een zin",
+                    "bij namen",
+                    "aan het begin van een zin en bij namen"
+                ]
+            },
+            { 
+                question: "Wat is de lange vorm van het bijvoeglijk naamwoord 'hoog'?", 
+                answers: ["hoge", "lange vorm is hoge"]
+            },
+            { 
+                question: "Hoe maak je het meervoud van 'baby'?", 
+                answers: ["baby's", "baby’s"]
+            },
+            { 
+                question: "Hoe schrijf je het verkleinwoord van 'ring'?", 
+                answers: ["ringetje", "kleine vorm is ringetje"]
+            },
+            { 
+                question: "Wat is de persoonsvorm in de zin: 'Ik werk graag'?", 
+                answers: ["werk", "de persoonsvorm is werk"]
+            },
+            { 
+                question: "Hoe spel je de verleden tijd van 'printen'?", 
+                answers: ["printte", "verleden tijd is printte"]
+            },
+            { 
+                question: "Hoe spel je het stoffelijke bijvoeglijk naamwoord van 'hout'?", 
+                answers: ["houten", "stoffelijk bijvoeglijk naamwoord is houten"]
+            }
+        ];
+
+        let currentQuestion = null;
+
+        function startQuestions() {
+            document.getElementById("content-box").style.display = "none";
+            document.getElementById("question-box").style.display = "block";
+            generateQuestion();
+        }
+
+        function generateQuestion() {
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            currentQuestion = questions[randomIndex];
+            document.getElementById("question").textContent = currentQuestion.question;
+            document.getElementById("answer").value = "";
+            document.getElementById("feedback").textContent = "";
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+            if (!currentQuestion) {
+                document.getElementById("feedback").textContent = "Klik eerst op 'Volgende Vraag'.";
+                return;
+            }
+            const correct = currentQuestion.answers.some(answer => answer.toLowerCase() === userAnswer);
+            if (correct) {
+                document.getElementById("feedback").textContent = "Goed gedaan! 👍";
+                document.getElementById("feedback").style.color = "green";
+            } else {
+                document.getElementById("feedback").textContent = `Helaas, correcte antwoorden zijn: "${currentQuestion.answers.join(' of ')}".`;
+                document.getElementById("feedback").style.color = "red";
+            }
+        }
+    </script>
+
+    <footer>
+        &copy; 2024 Spelling Regels. Alle rechten voorbehouden.
+    </footer>
+</body>
+</html>
